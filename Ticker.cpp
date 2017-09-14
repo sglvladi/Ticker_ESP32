@@ -43,14 +43,26 @@ void Ticker::attach(float seconds, void  func())
   attach_us(seconds*1000000L, func);
 }
 
-void Ticker::attach_us(uint32_t microseconds, void  func())
+void Ticker::once(float seconds, void  func())
+{
+  // Repeat the alarm (third parameter)
+  attach_us(seconds*1000000L, func, false);
+}
+
+void Ticker::once_us(uint32_t microseconds, void  func())
+{
+  // Repeat the alarm (third parameter)
+  attach_us(microseconds, func, false);
+}
+
+void Ticker::attach_us(uint32_t microseconds, void  func(), bool repeat)
 {
 
   // Attach onTimer function to our timer.
   timerAttachInterrupt(_hw_timer, func, true);
 
   // Set alarm to fire per given interval
-  timerAlarmWrite(_hw_timer, microseconds, true);
+  timerAlarmWrite(_hw_timer, microseconds, repeat);
 
   timerStart(_hw_timer);
   // Start an alarm

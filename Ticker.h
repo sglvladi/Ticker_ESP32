@@ -31,7 +31,9 @@ public:
     Ticker(int hw_timer_id);
     ~Ticker();
     void attach(float seconds, void  func());
-    void attach_us(uint32_t milliseconds, void  func());
+    void once(float seconds, void  func());
+    void once_us(uint32_t microseconds, void  func());
+    void attach_us(uint32_t microseconds, void  func(), bool repeat=true);
     void detach();
 };
 #endif
